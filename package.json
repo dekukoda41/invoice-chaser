@@ -2,6 +2,7 @@
   "name": "invoice-chaser",
   "version": "1.0.0",
   "description": "Automated payment follow-ups for freelancers",
+  "type": "module",
   "main": "scripts/send-reminders.js",
   "scripts": {
     "send-reminders": "node scripts/send-reminders.js"

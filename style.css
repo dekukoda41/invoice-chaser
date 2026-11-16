@@ -5,7 +5,7 @@ body {
 
 /* Smooth transitions for page sections */
 section {
-  scroll-mortar: 80px;
+  scroll-margin-top: 80px;
 }
 
 /* Custom scrollbar */
@@ -30,7 +30,9 @@ section {
 }
 
 /* Focus states */
-button:focus-visible, input:focus-visible, select:focus-visible {
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
   outline: 2px solid #4f46e5;
   outline-offset: 2px;
 }
@@ -44,7 +46,7 @@ button:focus-visible, input:focus-visible, select:focus-visible {
   color: #fff;
   padding: 12px 20px;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   transform: translateY(100px);
   opacity: 0;
   transition: all 0.3s ease;
@@ -53,4 +55,32 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 #toast.show {
   transform: translateY(0);
   opacity: 1;
+}
+
+/* FAQ chevron rotation */
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+/* Hero gradient text animation */
+.bg-clip-text {
+  -webkit-background-clip: text;
+}
+
+/* Upgrade banner pulse */
+@keyframes pulse-amber {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+.upgrade-pulse {
+  animation: pulse-amber 2s infinite;
+}
+
+/* Table row hover */
+tbody tr {
+  transition: background-color 0.15s ease;
 }

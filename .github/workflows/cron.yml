@@ -1,9 +1,9 @@
-name: Daily Invoice Follow-up
+name: Daily Invoice Follow-up Reminders
 
 on:
   schedule:
-    - cron: '0 9 * * *'  # Run every day at 09:00 UTC
-  workflow_dispatch:      # Allow manual trigger
+    - cron: '0 9 * * *'  # Every day at 09:00 UTC
+  workflow_dispatch:      # Manual trigger from GitHub UI
 
 jobs:
   send-reminders:
@@ -18,7 +18,7 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install @supabase/supabase-js node-fetch
+        run: npm ci
 
       - name: Send overdue invoice reminders
         run: node scripts/send-reminders.js
