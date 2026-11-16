@@ -32,38 +32,81 @@ const invoiceClientSelect = document.getElementById('invoiceClient');
 const statOverdue = document.getElementById('statOverdue');
 const statExpected = document.getElementById('statExpected');
 const statReminders = document.getElementById('statReminders');
+const mobileMenu = document.getElementById('mobileMenu');
 
 // State
 let isSignUpMode = false;
 let currentUser = null;
-let userPlan = 'free'; // default plan
+let userPlan = 'free';
+let mobileMenuOpen = false;
 
-// ==================== Toast ====================
+// ==================== UI Helpers ====================
+function initIcons() {
+  lucide.createIcons();
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+function toggleMobileMenu() {
+  mobileMenuOpen = !mobileMenuOpen;
+  if (mobileMenuOpen) {
+    mobileMenu.classList.remove('hidden');
+  } else {
+    mobileMenu.classList.add('hidden');
+  }
+}
+
+function toggleFaq(btn) {
+  const chevron = btn.querySelector('i[data-lucide="chevron-down"]');
+  const content = btn.nextElementSibling;
+  const isOpen = !content.classList.contains('hidden');
+
+  if (isOpen) {
+    content.classList.add('hidden');
+    chevron.classList.remove('rotate-180');
+  } else {
+    content.classList.remove('hidden');
+    chevron.classList.add('rotate-180');
+  }
+  lucide.createIcons();
+}
+
 function toast(message, type = 'success') {
-  // Remove existing toast
   const existing = document.getElementById('toast');
   if (existing) existing.remove();
 
   const el = document.createElement('div');
   el.id = 'toast';
-  el.className = `show ${type === 'error' ? 'bg-red-600' : 'bg-green-600'}`;
+  el.className = `fixed bottom-6 right-6 px-4 py-3 rounded-xl text-white font-medium shadow-xl transition-all duration-300 transform translate-y-10 opacity-0 ${type === 'error' ? 'bg-red-600' : 'bg-green-600'}`;
   el.textContent = message;
   document.body.appendChild(el);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    el.classList.remove('translate-y-10', 'opacity-0');
+  });
+
   setTimeout(() => {
-    el.classList.remove('show');
+    el.classList.add('translate-y-10', 'opacity-0');
     setTimeout(() => el.remove(), 300);
   }, 3000);
 }
 
-// ==================== Loading State Helpers ====================
 function setBtnLoading(btn, loading) {
   if (loading) {
     btn.disabled = true;
-    btn.dataset.originalText = btn.textContent;
-    btn.textContent = 'Please wait...';
+    btn.dataset.originalText = btn.innerHTML;
+    btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Please wait...';
+    lucide.createIcons();
   } else {
     btn.disabled = false;
-    btn.textContent = btn.dataset.originalText || btn.textContent;
+    btn.innerHTML = btn.dataset.originalText || btn.innerHTML;
+    lucide.createIcons();
   }
 }
 
@@ -95,10 +138,11 @@ async function handleAuth(e) {
 
 function toggleAuthClick() {
   isSignUpMode = !isSignUpMode;
-  authBtn.textContent = isSignUpMode ? 'Create Account' : 'Sign In';
+  authBtn.innerHTML = isSignUpMode ? 'Create Account' : '<span>Sign In</span> <i data-lucide="arrow-right" class="w-4 h-4"></i>';
   toggleAuth.textContent = isSignUpMode
     ? 'Already have an account? Sign in'
     : "Don't have an account? Sign up";
+  lucide.createIcons();
 }
 
 async function loadDashboard() {
@@ -107,7 +151,6 @@ async function loadDashboard() {
 
   currentUser = data.user;
 
-  // Create profile if missing
   const { data: profile } = await supabase
     .from('profiles')
     .select('*')
@@ -126,7 +169,6 @@ async function loadDashboard() {
     userPlan = profile.plan || 'free';
   }
 
-  // Show/hide upgrade banner based on plan
   if (upgradeBanner) {
     upgradeBanner.style.display = userPlan === 'free' ? 'block' : 'none';
   }
@@ -136,6 +178,7 @@ async function loadDashboard() {
   await loadClients();
   await loadInvoices();
   await updateStats();
+  initIcons();
 }
 
 async function logout() {
@@ -210,7 +253,7 @@ async function loadInvoices() {
 
   if (error || !data) {
     invoiceTableBody.innerHTML =
-      '<tr><td colspan="7" class="p-6 text-center text-gray-500">Error loading invoices</td></tr>';
+      '<tr><td colspan="7" class="p-6 text-center text-slate-500">Error loading invoices</td></tr>';
     return;
   }
 
@@ -231,24 +274,25 @@ async function loadInvoices() {
         ? 'bg-green-100 text-green-700'
         : isOverdue
           ? 'bg-red-100 text-red-700'
-          : 'bg-yellow-100 text-yellow-700';
+          : 'bg-amber-100 text-amber-700';
     const statusText = isOverdue ? 'Overdue' : inv.status.charAt(0).toUpperCase() + inv.status.slice(1);
 
     const row = document.createElement('tr');
-    row.className = 'hover:bg-gray-50 transition';
+    row.className = 'hover:bg-slate-50 transition';
     row.innerHTML = `
-      <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">${inv.invoice_number}</td>
-      <td class="px-6 py-4 whitespace-nowrap text-gray-700">${client ? client.name : 'Unknown'}</td>
-      <td class="px-6 py-4 whitespace-nowrap font-semibold text-gray-900">$${Number(inv.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-      <td class="px-6 py-4 whitespace-nowrap text-gray-700">${new Date(inv.due_date).toLocaleDateString()}</td>
+      <td class="px-6 py-4 whitespace-nowrap font-medium text-slate-900">${inv.invoice_number}</td>
+      <td class="px-6 py-4 whitespace-nowrap text-slate-700">${client ? client.name : 'Unknown'}</td>
+      <td class="px-6 py-4 whitespace-nowrap font-semibold text-slate-900">$${Number(inv.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+      <td class="px-6 py-4 whitespace-nowrap text-slate-700">${new Date(inv.due_date).toLocaleDateString()}</td>
       <td class="px-6 py-4 whitespace-nowrap"><span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium ${statusClass}">${statusText}</span></td>
-      <td class="px-6 py-4 whitespace-nowrap text-gray-600">${inv.reminder_count || 0}</td>
+      <td class="px-6 py-4 whitespace-nowrap text-slate-600">${inv.reminder_count || 0}</td>
       <td class="px-6 py-4 whitespace-nowrap text-right">
         <button onclick="markPaid('${inv.id}')" class="text-indigo-600 hover:text-indigo-900 text-sm font-medium">Mark Paid</button>
       </td>
     `;
     invoiceTableBody.appendChild(row);
   });
+  initIcons();
 }
 
 window.markPaid = async (id) => {
@@ -269,7 +313,6 @@ addInvoiceForm.addEventListener('submit', async (e) => {
   const btn = e.target.querySelector('button[type="submit"]');
   setBtnLoading(btn, true);
 
-  // Check plan limit
   const { data: existing } = await supabase
     .from('invoices')
     .select('id')
@@ -326,27 +369,11 @@ async function updateStats() {
   statReminders.textContent = totalReminders;
 }
 
-// ==================== FAQ Toggle ====================
-window.toggleFaq = (btn) => {
-  const chevron = btn.querySelector('svg');
-  const content = btn.nextElementSibling;
-  const isOpen = !content.classList.contains('hidden');
-
-  if (isOpen) {
-    content.classList.add('hidden');
-    chevron.classList.remove('rotate-180');
-  } else {
-    content.classList.remove('hidden');
-    chevron.classList.add('rotate-180');
-  }
-};
-
 // ==================== Listeners ====================
 authForm.addEventListener('submit', handleAuth);
 toggleAuth.addEventListener('click', toggleAuthClick);
 logoutBtn.addEventListener('click', logout);
 
-// Listen for auth state changes
 supabase.auth.onAuthStateChange(async (event, session) => {
   if (session) {
     await loadDashboard();
@@ -354,4 +381,9 @@ supabase.auth.onAuthStateChange(async (event, session) => {
     authContainer.classList.remove('hidden');
     dashboardContainer.classList.add('hidden');
   }
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+  initIcons();
 });

@@ -3,94 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Invoice Chaser — Stop Chasing Clients, Get Paid Automatically</title>
+  <title>Invoice Chaser — Get Paid Without the Awkward Follow-Up</title>
   <meta name="description" content="Automated payment follow-ups for freelancers. Add your invoices, we send polite escalating reminders on day 1, 7, and 14 past due. Free to start.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans antialiased">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased selection:bg-indigo-100 selection:text-indigo-700">
 
   <!-- ==================== NAVIGATION ==================== -->
-  <nav class="bg-white/80 backdrop-blur border-b border-gray-200 sticky top-0 z-50">
+  <nav class="fixed top-0 left-0 right-0 z-40 border-b border-slate-200/50 bg-white/80 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
-        <div class="flex items-center gap-2">
-          <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-200">IC</div>
-          <span class="font-bold text-xl tracking-tight text-gray-900">Invoice<span class="text-indigo-600">Chaser</span></span>
+      <div class="flex justify-between h-20 items-center">
+        <div class="flex items-center gap-3 cursor-pointer" onclick="scrollToSection('hero')">
+          <div class="w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-200">
+            <i data-lucide="clock" class="w-6 h-6"></i>
+          </div>
+          <span class="font-bold text-xl tracking-tight text-slate-900">Invoice<span class="text-indigo-600">Chaser</span></span>
         </div>
-        <div class="hidden md:flex items-center gap-6">
-          <a href="#problem" class="text-gray-600 hover:text-indigo-600 font-medium transition">The Problem</a>
-          <a href="#how-it-works" class="text-gray-600 hover:text-indigo-600 font-medium transition">How It Works</a>
-          <a href="#features" class="text-gray-600 hover:text-indigo-600 font-medium transition">Features</a>
-          <a href="#pricing" class="text-gray-600 hover:text-indigo-600 font-medium transition">Pricing</a>
-          <a href="#dashboard" class="bg-indigo-600 text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Start Free</a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#problem" class="text-slate-500 hover:text-indigo-600 font-medium transition-colors">The Problem</a>
+          <a href="#how-it-works" class="text-slate-500 hover:text-indigo-600 font-medium transition-colors">How It Works</a>
+          <a href="#features" class="text-slate-500 hover:text-indigo-600 font-medium transition-colors">Features</a>
+          <a href="#pricing" class="text-slate-500 hover:text-indigo-600 font-medium transition-colors">Pricing</a>
+          <a href="#dashboard" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 hover:shadow-indigo-300">Start Free</a>
         </div>
         <div class="md:hidden flex items-center gap-4">
-          <button class="text-gray-600 hover:text-indigo-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <button class="text-slate-500 hover:text-indigo-600" onclick="toggleMobileMenu()">
+            <i data-lucide="menu" class="w-6 h-6"></i>
           </button>
         </div>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-slate-100 p-4">
+      <div class="flex flex-col gap-4">
+        <a href="#problem" onclick="toggleMobileMenu()" class="text-slate-500 hover:text-indigo-600 font-medium">The Problem</a>
+        <a href="#how-it-works" onclick="toggleMobileMenu()" class="text-slate-500 hover:text-indigo-600 font-medium">How It Works</a>
+        <a href="#features" onclick="toggleMobileMenu()" class="text-slate-500 hover:text-indigo-600 font-medium">Features</a>
+        <a href="#pricing" onclick="toggleMobileMenu()" class="text-slate-500 hover:text-indigo-600 font-medium">Pricing</a>
+        <a href="#dashboard" onclick="toggleMobileMenu()" class="bg-indigo-600 text-white px-4 py-3 rounded-xl font-semibold text-center">Start Free</a>
       </div>
     </div>
   </nav>
 
   <!-- ==================== HERO ==================== -->
-  <section id="hero" class="relative py-16 lg:py-28 overflow-hidden bg-white">
+  <section id="hero" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10">
+      <div class="absolute top-[-10%] left-[10%] w-96 h-96 bg-indigo-100 rounded-full blur-3xl opacity-50"></div>
+      <div class="absolute top-[40%] right-[10%] w-80 h-80 bg-purple-100 rounded-full blur-3xl opacity-50"></div>
+      <div class="absolute bottom-[-10%] left-[20%] w-64 h-64 bg-indigo-50 rounded-full blur-xl opacity-40"></div>
+    </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-50 text-green-700 text-sm font-medium border border-green-100 mb-6">
+        <div class="space-y-8">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-50 text-green-700 text-sm font-medium border border-green-100">
             <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
             Free forever for up to 10 invoices
           </div>
-          <h1 class="text-5xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
+          <h1 class="text-5xl lg:text-7xl font-bold text-slate-900 leading-tight mb-6">
             Stop chasing clients.<br>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">Get paid automatically.</span>
           </h1>
-          <p class="text-lg lg:text-xl text-gray-600 mb-8 max-w-xl leading-relaxed">
+          <p class="text-lg lg:text-xl text-slate-600 mb-8 max-w-xl leading-relaxed">
             Add your invoices once. We send polite, escalating email reminders on day 1, 7, and 14 past due — so you never write another awkward follow-up again.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href="#dashboard" class="bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition shadow-xl shadow-indigo-200">Start for Free</a>
-            <a href="#how-it-works" class="bg-white text-gray-900 border border-gray-300 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-gray-50 transition">How It Works</a>
+            <a href="#dashboard" class="bg-indigo-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-200 hover:shadow-indigo-300 flex items-center justify-center gap-2">
+              Start for Free <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+            <a href="#how-it-works" class="bg-white text-slate-900 border border-slate-200 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-slate-50 transition-all shadow-sm">Watch Demo</a>
           </div>
-          <div class="mt-8 flex items-center gap-4 text-sm text-gray-500">
-            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">✓</div>
-            <span>No credit card required</span>
-            <div class="w-px h-4 bg-gray-300 mx-2"></div>
-            <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">✓</div>
-            <span>Cancels anytime</span>
+          <div class="mt-8 flex items-center gap-6 text-sm text-slate-500">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">✓</div>
+              <span>No credit card required</span>
+            </div>
+            <div class="w-px h-5 bg-slate-300 mx-1"></div>
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">✓</div>
+              <span>Cancels anytime</span>
+            </div>
+            <div class="w-px h-5 bg-slate-300 mx-1"></div>
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold">✓</div>
+              <span>Your data, your control</span>
+            </div>
           </div>
         </div>
         <div class="hidden lg:block relative">
-          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-2xl blur opacity-30"></div>
-          <div class="bg-white rounded-2xl shadow-2xl shadow-gray-100 border border-gray-100 p-8 w-full max-w-md relative z-10">
+          <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-3xl blur opacity-30"></div>
+          <div class="bg-white rounded-3xl shadow-2xl shadow-slate-200 border border-slate-100 p-8 relative z-10">
             <div class="flex items-center justify-between mb-6">
-              <h3 class="text-lg font-bold text-gray-900">Live Preview</h3>
-              <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <div class="flex items-center gap-2">
+                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                <span class="text-xs font-medium text-green-600">Live Demo</span>
+              </div>
             </div>
             <div class="space-y-4">
-              <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">📄</div>
+              <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                <div class="w-11 h-11 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-2xl">📄</div>
                 <div>
-                  <div class="text-sm font-medium text-gray-900">Add Invoice</div>
-                  <div class="text-xs text-gray-500">Client, amount, due date</div>
+                  <div class="text-sm font-medium text-slate-900">Add Invoice</div>
+                  <div class="text-xs text-slate-500">Client, amount, due date — 30 seconds</div>
                 </div>
               </div>
-              <div class="flex items-center gap-3 p-3 bg-indigo-50 rounded-xl border border-indigo-100">
-                <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600">📧</div>
+              <div class="flex items-center gap-3 p-4 bg-indigo-50 rounded-2xl border border-indigo-100">
+                <div class="w-11 h-11 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 text-2xl">📧</div>
                 <div>
-                  <div class="text-sm font-medium text-gray-900">Auto Reminder Sent</div>
-                  <div class="text-xs text-gray-500">Day 1 past due — polite tone</div>
+                  <div class="text-sm font-medium text-slate-900">Auto Reminder Sent</div>
+                  <div class="text-xs text-slate-500">Day 1 past due — polite tone</div>
                 </div>
               </div>
-              <div class="flex items-center gap-3 p-3 bg-green-50 rounded-xl border border-green-100">
-                <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600">💰</div>
+              <div class="flex items-center gap-3 p-4 bg-green-50 rounded-2xl border border-green-100">
+                <div class="w-11 h-11 bg-green-100 rounded-xl flex items-center justify-center text-green-600 text-2xl">💰</div>
                 <div>
-                  <div class="text-sm font-medium text-gray-900">Client Pays</div>
-                  <div class="text-xs text-gray-500">Reminders stop automatically</div>
+                  <div class="text-sm font-medium text-slate-900">Client Pays</div>
+                  <div class="text-xs text-slate-500">Reminders stop automatically</div>
                 </div>
               </div>
             </div>
@@ -100,38 +130,82 @@
     </div>
   </section>
 
-  <!-- ==================== THE PROBLEM ==================== -->
-  <section id="problem" class="py-24 bg-gray-900 text-white">
+  <!-- ==================== SOCIAL PROOF ==================== -->
+  <section class="py-16 border-y border-slate-200 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-lg font-bold text-slate-900 uppercase tracking-wider text-slate-400">Trusted by freelancers who hate admin</h2>
+        <div class="flex gap-4 text-slate-400">
+          <div class="flex items-center gap-1">
+            <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+            <span class="text-xs font-medium">4.9/5</span>
+          </div>
+          <span class="text-xs">from 500+ reviews</span>
+        </div>
+      </div>
+      <div class="flex gap-6 overflow-x-auto pb-4">
+        <div class="flex-shrink-0 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"><span class="text-lg font-semibold text-slate-400">Bonsai</span></div>
+        <div class="flex-shrink-0 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"><span class="text-lg font-semibold text-slate-400">HoneyBook</span></div>
+        <div class="flex-shrink-0 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"><span class="text-lg font-semibold text-slate-400">FreshBooks</span></div>
+        <div class="flex-shrink-0 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"><span class="text-lg font-semibold text-slate-400">QuickBooks</span></div>
+        <div class="flex-shrink-0 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all"><span class="text-lg font-semibold text-slate-400">Wave</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== THE PROBLEM ==================== -->
+  <section id="problem" class="py-24 bg-slate-900 text-white relative overflow-hidden">
+    <div class="absolute top-0 left-0 right-0 bottom-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center mb-16">
-        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-4">The Data</span>
-        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">Late payment isn't rare. It's the norm.</h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">85% of freelancers get paid late. You're not bad at collections — the system is broken.</p>
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wide uppercase mb-4 border border-indigo-500/30">
+          <i data-lucide="alert-circle" class="w-3 h-3"></i>
+          The Data
+        </span>
+        <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6">Late payment isn't rare.<br>It's the norm.</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto leading-relaxed">
+          85% of freelancers get paid late. You're not bad at collections — the system is broken. Existing tools charge $30–$60/month just to send follow-up emails.
+        </p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-800/50 rounded-2xl p-8 border border-gray-700/50">
-          <div class="text-4xl font-bold text-indigo-400 mb-2">85%</div>
-          <div class="text-sm text-gray-400 font-medium">of freelancers have invoices paid late at least sometimes</div>
-          <div class="mt-3 text-xs text-gray-500">Remote 2025 Contractor Report</div>
+        <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50 hover:border-indigo-500/50 transition-all group">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">85%</div>
+            <div>
+              <div class="text-3xl font-bold text-white mb-1">85%</div>
+              <div class="text-sm text-slate-400 font-medium">of freelancers have invoices paid late at least sometimes</div>
+            </div>
+          </div>
+          <div class="text-xs text-slate-500 mt-2">Remote 2025 Contractor Report</div>
         </div>
-        <div class="bg-gray-800/50 rounded-2xl p-8 border border-gray-700/50">
-          <div class="text-4xl font-bold text-indigo-400 mb-2">29%</div>
-          <div class="text-sm text-gray-400 font-medium">of freelance invoices are paid 1+ day late</div>
-          <div class="mt-3 text-xs text-gray-500">Bonsai, 100k+ freelancers</div>
+        <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50 hover:border-indigo-500/50 transition-all group">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">29%</div>
+            <div>
+              <div class="text-3xl font-bold text-white mb-1">29%</div>
+              <div class="text-sm text-slate-400 font-medium">of freelance invoices are paid 1+ day late</div>
+            </div>
+          </div>
+          <div class="text-xs text-slate-500 mt-2">Bonsai, 100k+ freelancers</div>
         </div>
-        <div class="bg-gray-800/50 rounded-2xl p-8 border border-gray-700/50">
-          <div class="text-4xl font-bold text-indigo-400 mb-2">86 hrs</div>
-          <div class="text-sm text-gray-400 font-medium">per year spent chasing overdue invoices</div>
-          <div class="mt-3 text-xs text-gray-500">UK Office of the Small Business Commissioner</div>
+        <div class="bg-slate-800/50 rounded-2xl p-8 border border-slate-700/50 hover:border-indigo-500/50 transition-all group">
+          <div class="flex items-start gap-4 mb-6">
+            <div class="w-12 h-12 bg-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all">86 hrs</div>
+            <div>
+              <div class="text-3xl font-bold text-white mb-1">86 hrs</div>
+              <div class="text-sm text-slate-400 font-medium">per year spent chasing overdue invoices</div>
+            </div>
+          </div>
+          <div class="text-xs text-slate-500 mt-2">UK Office of Small Business Commissioner</div>
         </div>
       </div>
-      <div class="mt-16 bg-gray-800/30 rounded-2xl p-8 border border-gray-700/30">
+      <div class="mt-16 bg-slate-800/30 rounded-3xl p-10 border border-slate-700/30">
         <div class="flex flex-col md:flex-row items-start gap-8">
           <div class="flex-shrink-0 w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center text-red-400 font-bold text-xl">!</div>
           <div>
             <h3 class="text-xl font-bold text-white mb-3">You're losing money every week</h3>
-            <p class="text-gray-400 leading-relaxed">
-              The average freelancer has <strong>$6,000+</strong> in unpaid invoices at any given time. Meanwhile, Bonsai ($29/mo), HoneyBook ($49/mo), and FreshBooks ($43/mo) charge you $300–$600/year just to send follow-up emails you could automate yourself.
+            <p class="text-slate-400 leading-relaxed">
+              The average freelancer has <strong class="text-white">$6,000+</strong> in unpaid invoices at any given time. Meanwhile, Bonsai ($29/mo), HoneyBook ($49/mo), and FreshBooks ($43/mo) charge you $360–$720/year just to send follow-up emails you could automate yourself.
             </p>
           </div>
         </div>
@@ -143,66 +217,81 @@
   <section id="how-it-works" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Three steps. That's it.</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">No new invoicing system. No client portal. Just follow-ups that work while you focus on your work.</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Three steps. That's it.</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">No new invoicing system. No client portal. Just follow-ups that work while you focus on your work.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="p-8 rounded-2xl bg-gray-50 border border-gray-100">
-          <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-3xl mb-6">1</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">Add your invoice</h3>
-          <p class="text-gray-600 leading-relaxed">Client name, email, amount, due date. Takes 30 seconds. Connects to whatever you already use.</p>
+        <div class="group relative p-8 rounded-3xl bg-white border border-slate-200 hover:shadow-2xl hover:border-indigo-200 transition-all">
+          <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-600 text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="plus-circle" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">1. Add your invoice</h3>
+          <p class="text-slate-600 leading-relaxed">Client name, email, amount, due date. Takes 30 seconds. Connects to whatever you already use.</p>
+          <div class="mt-6 pt-6 border-t border-slate-100">
+            <span class="text-xs font-medium text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">No credit card</span>
+          </div>
         </div>
-        <div class="p-8 rounded-2xl bg-indigo-50 border border-indigo-100">
-          <div class="w-14 h-14 bg-indigo-200 rounded-2xl flex items-center justify-center text-indigo-600 text-3xl mb-6">2</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">We chase automatically</h3>
-          <p class="text-gray-600 leading-relaxed">Day 1 (polite), Day 7 (firm), Day 14 (final). Escalating tone per client. You never write the emails.</p>
+        <div class="group relative p-8 rounded-3xl bg-indigo-50 border border-indigo-100 hover:shadow-2xl hover:shadow-indigo-100 transition-all">
+          <div class="w-14 h-14 bg-indigo-200 rounded-2xl flex items-center justify-center text-indigo-600 text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="mail" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">2. We chase automatically</h3>
+          <p class="text-slate-600 leading-relaxed">Day 1 (polite), Day 7 (firm), Day 14 (final). Escalating tone per client. You never write the emails.</p>
+          <div class="mt-6 pt-6 border-t border-indigo-200">
+            <span class="text-xs font-medium text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full">Auto-pilot</span>
+          </div>
         </div>
-        <div class="p-8 rounded-2xl bg-green-50 border border-green-100">
-          <div class="w-14 h-14 bg-green-200 rounded-2xl flex items-center justify-center text-green-600 text-3xl mb-6">3</div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3">You get paid</h3>
-          <p class="text-gray-600 leading-relaxed">Client pays. You mark it paid. Reminders stop instantly. No awkward conversations. No lost money.</p>
+        <div class="group relative p-8 rounded-3xl bg-white border border-slate-200 hover:shadow-2xl hover:border-indigo-200 transition-all">
+          <div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-green-600 text-3xl mb-6 group-hover:scale-110 transition-transform">
+            <i data-lucide="check-circle" class="w-8 h-8"></i>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">3. You get paid</h3>
+          <p class="text-slate-600 leading-relaxed">Client pays. You mark it paid. Reminders stop instantly. No awkward conversations. No lost money.</p>
+          <div class="mt-6 pt-6 border-t border-slate-100">
+            <span class="text-xs font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">Stops when paid</span>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ==================== FEATURES ==================== -->
-  <section id="features" class="py-24 bg-gray-50 border-t border-gray-200">
+  <section id="features" class="py-24 bg-slate-50 border-t border-slate-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Built for freelancers who hate admin</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">Everything you need to chase payments — nothing you don't.</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Built for freelancers who hate admin</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">Everything you need to chase payments — nothing you don't.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition group">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition">⏰</div>
-          <h3 class="font-bold text-gray-900 mb-2">3-Touch Escalation</h3>
-          <p class="text-gray-600 text-sm">Day 1 (friendly), Day 7 (firm), Day 14 (final). Automatically escalates — you never write the emails.</p>
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 hover:shadow-xl transition-all">
+          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition-transform">⏰</div>
+          <h3 class="font-bold text-slate-900 mb-2">3-Touch Escalation</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Day 1 (friendly), Day 7 (firm), Day 14 (final). Automatically escalates — you never write the emails.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition group">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition">🎯</div>
-          <h3 class="font-bold text-gray-900 mb-2">Per-Client Tone</h3>
-          <p class="text-gray-600 text-sm">Set polite, firm, or final tone per client. Protect relationships while getting paid.</p>
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 hover:shadow-xl transition-all">
+          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition-transform">🎯</div>
+          <h3 class="font-bold text-slate-900 mb-2">Per-Client Tone</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Set polite, firm, or final tone per client. Protect relationships while getting paid.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition group">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition">📊</div>
-          <h3 class="font-bold text-gray-900 mb-2">Cash Flow Dashboard</h3>
-          <p class="text-gray-600 text-sm">See overdue amount, expected cash, and reminder status at a glance.</p>
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 hover:shadow-xl transition-all">
+          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition-transform">📊</div>
+          <h3 class="font-bold text-slate-900 mb-2">Cash Flow Dashboard</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">See overdue amount, expected cash, and reminder status at a glance.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition group">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition">🔕</div>
-          <h3 class="font-bold text-gray-900 mb-2">Auto-Stop When Paid</h3>
-          <p class="text-gray-600 text-sm">Mark an invoice paid and all reminders stop instantly. No embarrassing follow-ups to paid clients.</p>
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 hover:shadow-xl transition-all">
+          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition-transform">🔕</div>
+          <h3 class="font-bold text-slate-900 mb-2">Auto-Stop When Paid</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Mark an invoice paid and all reminders stop instantly. No embarrassing follow-ups to paid clients.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition group">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition">📧</div>
-          <h3 class="font-bold text-gray-900 mb-2">Works With Your Stack</h3>
-          <p class="text-gray-600 text-sm">QuickBooks, Wave, Stripe, Excel — whatever you use to invoice. We sit beside it, not replace it.</p>
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 hover:shadow-xl transition-all">
+          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition-transform">📧</div>
+          <h3 class="font-bold text-slate-900 mb-2">Works With Your Stack</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">QuickBooks, Wave, Stripe, Excel — whatever you use to invoice. We sit beside it, not replace it.</p>
         </div>
-        <div class="p-6 rounded-2xl bg-white border border-gray-200 hover:shadow-lg transition group">
-          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition">🔐</div>
-          <h3 class="font-bold text-gray-900 mb-2">Your Data, Your Control</h3>
-          <p class="text-gray-600 text-sm">Supabase-backed with row-level security. You own your data. No black-box algorithms.</p>
+        <div class="p-6 rounded-3xl bg-white border border-slate-200 hover:shadow-xl transition-all">
+          <div class="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4 text-2xl group-hover:scale-110 transition-transform">🔐</div>
+          <h3 class="font-bold text-slate-900 mb-2">Your Data, Your Control</h3>
+          <p class="text-slate-600 text-sm leading-relaxed">Supabase-backed with row-level security. You own your data. No black-box algorithms.</p>
         </div>
       </div>
     </div>
@@ -212,30 +301,28 @@
   <section id="pricing" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Simple, honest pricing</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">One recovered invoice pays for a year.</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Simple, honest pricing</h2>
+        <p class="text-slate-600 max-w-2xl mx-auto">One recovered invoice pays for a year.</p>
       </div>
       <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-        <!-- Free -->
-        <div class="p-8 rounded-2xl bg-white border border-gray-200 flex flex-col">
-          <div class="flex items-center gap-2 mb-2">
+        <div class="p-8 rounded-3xl bg-white border border-slate-200 flex flex-col hover:shadow-xl transition-all">
+          <div class="flex items-center gap-2 mb-4">
             <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded">Free Forever</span>
           </div>
-          <h3 class="font-bold text-gray-900 text-lg mb-4">Free</h3>
-          <div class="my-4"><span class="text-4xl font-bold text-gray-900">$0</span><span class="text-gray-500">/mo</span></div>
-          <p class="text-gray-600 text-sm mb-6">For trying it out on a few invoices.</p>
-          <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+          <h3 class="font-bold text-slate-900 text-lg mb-4">Free</h3>
+          <div class="my-4"><span class="text-5xl font-bold text-slate-900">$0</span><span class="text-slate-500">/mo</span></div>
+          <p class="text-slate-600 text-sm mb-6">For trying it out on a few invoices.</p>
+          <ul class="space-y-3 text-sm text-slate-600 mb-8 flex-1">
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Up to 10 active invoices</li>
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Email reminders only</li>
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> 3-touch escalation sequence</li>
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Cash flow dashboard</li>
-            <li class="flex items-center gap-2"><span class="text-gray-400">✗</span> WhatsApp reminders</li>
-            <li class="flex items-center gap-2"><span class="text-gray-400">✗</span> Custom email templates</li>
+            <li class="flex items-center gap-2"><span class="text-slate-400">✗</span> WhatsApp reminders</li>
+            <li class="flex items-center gap-2"><span class="text-slate-400">✗</span> Custom email templates</li>
           </ul>
-          <a href="#dashboard" class="w-full py-4 rounded-xl border border-indigo-600 text-indigo-600 font-semibold text-center block hover:bg-indigo-50 transition">Start Free</a>
+          <a href="#dashboard" class="w-full py-4 rounded-xl border border-indigo-600 text-indigo-600 font-semibold text-center block hover:bg-indigo-50 transition-all shadow-sm">Start Free</a>
         </div>
-        <!-- Pro -->
-        <div class="p-8 rounded-2xl bg-indigo-600 text-white border border-indigo-500 shadow-xl shadow-indigo-200 relative flex flex-col">
+        <div class="p-8 rounded-3xl bg-indigo-600 text-white border border-indigo-500 shadow-2xl shadow-indigo-200 relative flex flex-col group">
           <div class="absolute top-0 left-1/2 -translate-x-1/2 -top-3 bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-xs font-bold">Most Popular</div>
           <h3 class="font-bold text-indigo-100 text-lg mb-4">Pro</h3>
           <div class="my-4"><span class="text-5xl font-bold">$15</span><span class="text-indigo-200">/mo</span></div>
@@ -248,71 +335,70 @@
             <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Custom email templates per client</li>
             <li class="flex items-center gap-2"><span class="text-green-400">✓</span> Priority email support</li>
           </ul>
-          <a href="https://buy.stripe.com/test_4gw28n6s81R94e8aAA" target="_blank" class="w-full py-4 rounded-xl bg-white text-indigo-600 font-semibold text-center block hover:bg-gray-100 transition">Get Pro — $15/mo</a>
+          <a href="https://buy.stripe.com/test_4gw28n6s81R94e8aAA" target="_blank" class="w-full py-4 rounded-xl bg-white text-indigo-600 font-semibold text-center block hover:bg-gray-100 transition-all shadow-xl shadow-white/20">Get Pro — $15/mo</a>
         </div>
-        <!-- Team -->
-        <div class="p-8 rounded-2xl bg-white border border-gray-200 flex flex-col">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-xs font-bold text-gray-600 bg-gray-50 px-2 py-0.5 rounded">For Teams</span>
+        <div class="p-8 rounded-3xl bg-white border border-slate-200 flex flex-col hover:shadow-xl transition-all">
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-xs font-bold text-slate-600 bg-slate-50 px-2 py-0.5 rounded">For Teams</span>
           </div>
-          <h3 class="font-bold text-gray-900 text-lg mb-4">Team</h3>
-          <div class="my-4"><span class="text-4xl font-bold text-gray-900">$49</span><span class="text-gray-500">/mo</span></div>
-          <p class="text-gray-600 text-sm mb-6">For agencies managing client accounts.</p>
-          <ul class="space-y-3 text-sm text-gray-600 mb-8 flex-1">
+          <h3 class="font-bold text-slate-900 text-lg mb-4">Team</h3>
+          <div class="my-4"><span class="text-5xl font-bold text-slate-900">$49</span><span class="text-slate-500">/mo</span></div>
+          <p class="text-slate-600 text-sm mb-6">For agencies managing client accounts.</p>
+          <ul class="space-y-3 text-sm text-slate-600 mb-8 flex-1">
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Everything in Pro</li>
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Up to 5 team seats</li>
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Multi-company profiles</li>
             <li class="flex items-center gap-2"><span class="text-green-600">✓</span> Priority support</li>
           </ul>
-          <a href="mailto:hello@invoice-chaser.dev" class="w-full py-4 rounded-xl border border-gray-300 text-gray-700 font-semibold text-center block hover:bg-gray-50 transition">Contact Sales</a>
+          <a href="mailto:hello@invoice-chaser.dev" class="w-full py-4 rounded-xl border border-slate-300 text-slate-700 font-semibold text-center block hover:bg-slate-50 transition-all shadow-sm">Contact Sales</a>
         </div>
       </div>
       <div class="mt-16 text-center">
-        <p class="text-gray-500 text-sm">No credit card required for Free plan. Cancel anytime. One recovered invoice usually covers the Pro plan for a year.</p>
+        <p class="text-slate-500 text-sm">No credit card required for Free plan. Cancel anytime. One recovered invoice usually covers Pro for a year.</p>
       </div>
     </div>
   </section>
 
   <!-- ==================== FAQ ==================== -->
-  <section id="faq" class="py-24 bg-gray-50 border-t border-gray-200">
+  <section id="faq" class="py-24 bg-slate-50 border-t border-slate-200">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16">
-        <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">Frequently asked questions</h2>
+        <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Frequently asked questions</h2>
       </div>
-      <div class="space-y-4">
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <button class="w-full flex justify-between items-center p-6 text-left text-gray-900 font-medium hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+      <div class="space-y-3">
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden group">
+          <button class="w-full flex justify-between items-center p-6 text-left text-slate-900 font-medium hover:bg-slate-50 transition-all" onclick="toggleFaq(this)">
             Will automated reminders annoy my clients?
-            <svg class="w-5 h-5 text-gray-400 transition-transform" id="faq-chevron-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform group-hover:rotate-180"></i>
           </button>
-          <div class="faq-content hidden bg-gray-50/50 px-6 pb-6 text-sm text-gray-600">
+          <div class="faq-content hidden bg-slate-50/50 px-6 pb-6 text-sm text-slate-600 border-t border-slate-100/50">
             Our reminders are designed to be polite and professional — most clients appreciate the nudge because invoices genuinely slip through. You control the tone (polite/firm/final) per client, and reminders stop the moment you mark an invoice paid.
           </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <button class="w-full flex justify-between items-center p-6 text-left text-gray-900 font-medium hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden group">
+          <button class="w-full flex justify-between items-center p-6 text-left text-slate-900 font-medium hover:bg-slate-50 transition-all" onclick="toggleFaq(this)">
             Do I need to switch invoicing software?
-            <svg class="w-5 h-5 text-gray-400 transition-transform" id="faq-chevron-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform group-hover:rotate-180"></i>
           </button>
-          <div class="faq-content hidden bg-gray-50/50 px-6 pb-6 text-sm text-gray-600">
-            No. Invoice Chaser sits beside your current process — QuickBooks, Wave, Stripe, Excel, whatever. You manually add invoices (or import via CSV in v2), and we handle the follow-ups.
+          <div class="faq-content hidden bg-slate-50/50 px-6 pb-6 text-sm text-slate-600 border-t border-slate-100/50">
+            No. Invoice Chaser sits beside your current process — QuickBooks, Wave, Stripe, Excel, whatever. You manually add invoices, and we handle the follow-ups.
           </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <button class="w-full flex justify-between items-center p-6 text-left text-gray-900 font-medium hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden group">
+          <button class="w-full flex justify-between items-center p-6 text-left text-slate-900 font-medium hover:bg-slate-50 transition-all" onclick="toggleFaq(this)">
             What happens when a client pays?
-            <svg class="w-5 h-5 text-gray-400 transition-transform" id="faq-chevron-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform group-hover:rotate-180"></i>
           </button>
-          <div class="faq-content hidden bg-gray-50/50 px-6 pb-6 text-sm text-gray-600">
+          <div class="faq-content hidden bg-slate-50/50 px-6 pb-6 text-sm text-slate-600 border-t border-slate-100/50">
             Mark the invoice as paid in your dashboard and all reminders stop instantly. No more embarrassing follow-ups to clients who already paid.
           </div>
         </div>
-        <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <button class="w-full flex justify-between items-center p-6 text-left text-gray-900 font-medium hover:bg-gray-50 transition" onclick="toggleFaq(this)">
+        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden group">
+          <button class="w-full flex justify-between items-center p-6 text-left text-slate-900 font-medium hover:bg-slate-50 transition-all" onclick="toggleFaq(this)">
             Is there a free plan?
-            <svg class="w-5 h-5 text-gray-400 transition-transform" id="faq-chevron-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform group-hover:rotate-180"></i>
           </button>
-          <div class="faq-content hidden bg-gray-50/50 px-6 pb-6 text-sm text-gray-600">
+          <div class="faq-content hidden bg-slate-50/50 px-6 pb-6 text-sm text-slate-600 border-t border-slate-100/50">
             Yes. Free forever for up to 10 active invoices with email reminders. No credit card required. Upgrade to Pro for unlimited invoices, WhatsApp reminders, and custom templates.
           </div>
         </div>
@@ -322,150 +408,147 @@
 
   <!-- ==================== DASHBOARD / APP ==================== -->
   <div id="dashboard" class="hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    
-    <!-- Auth Container -->
     <div id="authContainer" class="max-w-md mx-auto py-12">
-      <div class="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+      <div class="bg-white rounded-3xl shadow-2xl border border-slate-200 p-8">
         <div class="text-center mb-8">
-          <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-lg shadow-indigo-200">IC</div>
-          <h2 class="text-2xl font-bold text-gray-900">Sign in to Invoice Chaser</h2>
-          <p class="text-gray-600">Join freelancers getting paid automatically.</p>
+          <div class="w-14 h-14 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg shadow-indigo-200">
+            <i data-lucide="clock" class="w-8 h-8"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-900">Sign in to Invoice Chaser</h2>
+          <p class="text-slate-600">Join freelancers getting paid automatically.</p>
         </div>
-        <form id="authForm" class="space-y-4">
+        <form id="authForm" class="space-y-5">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input type="email" id="authEmail" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="you@example.com">
+            <label class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+            <input type="email" id="authEmail" required class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input type="password" id="authPassword" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" minlength="6">
+            <label class="block text-sm font-medium text-slate-700 mb-2">Password</label>
+            <input type="password" id="authPassword" required class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all" minlength="6">
           </div>
-          <button type="submit" id="authBtn" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Sign In</button>
-          <p class="text-center text-sm text-gray-600 mt-4">
+          <button type="submit" id="authBtn" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 hover:shadow-indigo-300 flex items-center justify-center gap-2">
+            Sign In <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+          <p class="text-center text-sm text-slate-600 mt-6">
             Don't have an account? <button type="button" id="toggleAuth" class="text-indigo-600 font-medium hover:underline">Sign up</button>
           </p>
         </form>
       </div>
     </div>
-
-    <!-- Dashboard Container -->
     <div id="dashboardContainer" class="hidden">
-      <!-- Mobile header -->
       <div class="lg:hidden flex justify-between items-center mb-6">
-        <h1 class="text-xl font-bold text-gray-900">Dashboard</h1>
-        <button id="logoutBtn" class="text-gray-600 hover:text-gray-900 text-sm">Sign out</button>
+        <h1 class="text-xl font-bold text-slate-900">Dashboard</h1>
+        <button id="logoutBtn" class="text-slate-500 hover:text-slate-900 text-sm font-medium">Sign out</button>
       </div>
-
-      <!-- Upgrade Banner (Free tier) -->
-      <div id="upgradeBanner" class="bg-amber-50 border border-amber-200 rounded-xl p-6 mb-8 flex items-center gap-4">
-        <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center text-amber-600 font-bold text-xl">⚡</div>
-        <div>
+      <div id="upgradeBanner" class="bg-gradient-to-r from-amber-50 to-amber-100 border border-amber-200 rounded-2xl p-6 mb-8 flex items-center gap-4 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-amber-200/50 rounded-full blur-3xl -mr-16 -mt-16"></div>
+        <div class="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 font-bold text-xl relative z-10">⚡</div>
+        <div class="relative z-10">
           <h3 class="font-bold text-amber-900">Free plan limit: 10 invoices</h3>
           <p class="text-amber-800 text-sm">Upgrade to Pro for unlimited invoices, WhatsApp reminders, and custom templates.</p>
         </div>
-        <a href="https://buy.stripe.com/test_4gw28n6s81R94e8aAA" target="_blank" class="bg-amber-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-700 transition">Get Pro — $15/mo</a>
+        <a href="https://buy.stripe.com/test_4gw28n6s81R94e8aAA" target="_blank" class="bg-amber-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-amber-700 transition-all shadow-md shadow-amber-200 relative z-10">Get Pro — $15/mo</a>
       </div>
-
-      <!-- Stats -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-          <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Overdue</div>
-          <div class="text-2xl font-bold text-gray-900 mt-1" id="statOverdue">$0</div>
-          <div class="text-xs text-gray-500 mt-2">Invoices past due</div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Overdue</div>
+          <div class="text-3xl font-bold text-slate-900 mt-1" id="statOverdue">$0</div>
+          <div class="text-xs text-slate-500 mt-2">Invoices past due</div>
         </div>
-        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-          <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Expected Cash</div>
-          <div class="text-2xl font-bold text-gray-900 mt-1" id="statExpected">$0</div>
-          <div class="text-xs text-gray-500 mt-2">Pending invoices</div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Expected Cash</div>
+          <div class="text-3xl font-bold text-slate-900 mt-1" id="statExpected">$0</div>
+          <div class="text-xs text-slate-500 mt-2">Pending invoices</div>
         </div>
-        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-          <div class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Sent Reminders</div>
-          <div class="text-2xl font-bold text-gray-900 mt-1" id="statReminders">0</div>
-          <div class="text-xs text-gray-500 mt-2">Auto follow-ups sent</div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Sent Reminders</div>
+          <div class="text-3xl font-bold text-slate-900 mt-1" id="statReminders">0</div>
+          <div class="text-xs text-slate-500 mt-2">Auto follow-ups sent</div>
         </div>
       </div>
-
       <div class="grid lg:grid-cols-3 gap-8">
-        <!-- Left: Add Invoice + Client -->
         <div class="lg:col-span-1 space-y-6">
-          <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="font-bold text-gray-900 mb-4">Add Invoice</h3>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <i data-lucide="file-text" class="w-4 h-4 text-indigo-600"></i> Add Invoice
+            </h3>
             <form id="addInvoiceForm" class="space-y-4">
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Client</label>
-                <select id="invoiceClient" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none"></select>
+                <label class="block text-xs font-medium text-slate-700 mb-1">Client</label>
+                <select id="invoiceClient" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none"></select>
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Invoice #</label>
-                <input type="text" id="invoiceNumber" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="INV-001">
+                <label class="block text-xs font-medium text-slate-700 mb-1">Invoice #</label>
+                <input type="text" id="invoiceNumber" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="INV-001">
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Amount ($)</label>
-                <input type="number" id="invoiceAmount" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" step="0.01">
+                <label class="block text-xs font-medium text-slate-700 mb-1">Amount ($)</label>
+                <input type="number" id="invoiceAmount" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" step="0.01">
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Due Date</label>
-                <input type="date" id="invoiceDueDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                <label class="block text-xs font-medium text-slate-700 mb-1">Due Date</label>
+                <input type="date" id="invoiceDueDate" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
               </div>
               <div class="flex items-center gap-3">
                 <input type="checkbox" id="invoiceAutoFollowUp" checked class="rounded text-indigo-600 focus:ring-indigo-500">
-                <label class="text-xs text-gray-600">Auto follow-up</label>
+                <label class="text-xs text-slate-600">Auto follow-up</label>
               </div>
-              <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">Add Invoice</button>
+              <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200 flex items-center justify-center gap-2">
+                Add Invoice <i data-lucide="plus" class="w-4 h-4"></i>
+              </button>
             </form>
           </div>
-
-          <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-            <h3 class="font-bold text-gray-900 mb-4">Add Client</h3>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+            <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+              <i data-lucide="user-plus" class="w-4 h-4 text-indigo-600"></i> Add Client
+            </h3>
             <form id="addClientForm" class="space-y-4">
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Name</label>
-                <input type="text" id="clientName" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Acme Corp">
+                <label class="block text-xs font-medium text-slate-700 mb-1">Name</label>
+                <input type="text" id="clientName" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="Acme Corp">
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Email</label>
-                <input type="email" id="clientEmail" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="billing@acme.com">
+                <label class="block text-xs font-medium text-slate-700 mb-1">Email</label>
+                <input type="email" id="clientEmail" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none" placeholder="billing@acme.com">
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-700 mb-1">Tone</label>
-                <select id="clientTone" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                <label class="block text-xs font-medium text-slate-700 mb-1">Tone</label>
+                <select id="clientTone" class="w-full px-3 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none">
                   <option value="polite">Polite</option>
                   <option value="firm">Firm</option>
                   <option value="final">Final</option>
                 </select>
               </div>
-              <button type="submit" class="w-full bg-gray-100 text-gray-900 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">Add Client</button>
+              <button type="submit" class="w-full bg-slate-100 text-slate-900 py-3 rounded-lg font-semibold hover:bg-slate-200 transition-all">Add Client</button>
             </form>
           </div>
         </div>
-
-        <!-- Right: Invoice List -->
         <div class="lg:col-span-2">
-          <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
-              <h3 class="font-bold text-gray-900">All Invoices</h3>
+          <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+              <h3 class="font-bold text-slate-900 flex items-center gap-2">
+                <i data-lucide="list" class="w-4 h-4 text-slate-500"></i> All Invoices
+              </h3>
             </div>
             <div class="overflow-x-auto">
               <table class="w-full text-left">
                 <thead>
-                  <tr class="border-b border-gray-200 bg-gray-50">
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Invoice</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Client</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Amount</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Due</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Status</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Reminders</th>
-                    <th class="px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                  <tr class="border-b border-slate-100 bg-slate-50">
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Invoice</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Client</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Amount</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Due</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Status</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Reminders</th>
+                    <th class="px-6 py-3 text-xs font-semibold text-slate-500 uppercase">Actions</th>
                   </tr>
                 </thead>
-                <tbody id="invoiceTableBody" class="divide-y divide-gray-200">
-                  <!-- Rows injected by JS -->
-                </tbody>
+                <tbody id="invoiceTableBody" class="divide-y divide-slate-100"></tbody>
               </table>
             </div>
-            <div id="emptyState" class="hidden p-12 text-center">
-              <div class="text-gray-400 text-4xl mb-4">📭</div>
-              <p class="text-gray-600">No invoices yet. Add your first invoice to get started.</p>
+            <div id="emptyState" class="hidden p-16 text-center">
+              <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center text-slate-400 text-3xl mx-auto mb-4">📭</div>
+              <p class="text-slate-600">No invoices yet. Add your first invoice to get started.</p>
             </div>
           </div>
         </div>

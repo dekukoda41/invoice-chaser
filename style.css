@@ -1,9 +1,10 @@
-/* Invoice Chaser — Custom Styles */
+/* Invoice Chaser — Premium Custom Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Smooth transitions for page sections */
 section {
   scroll-margin-top: 80px;
 }
@@ -24,7 +25,7 @@ section {
   background: #94a3b8;
 }
 
-/* Utility for hiding sections */
+/* Hide sections */
 .hidden {
   display: none !important;
 }
@@ -62,25 +63,49 @@ select:focus-visible {
   transform: rotate(180deg);
 }
 
-/* Hero gradient text animation */
-.bg-clip-text {
-  -webkit-background-clip: text;
+/* Loader animation */
+.animate-spin {
+  animation: spin 1s linear infinite;
 }
-
-/* Upgrade banner pulse */
-@keyframes pulse-amber {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.6;
-  }
-}
-.upgrade-pulse {
-  animation: pulse-amber 2s infinite;
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Table row hover */
 tbody tr {
   transition: background-color 0.15s ease;
+}
+
+/* Gradient text */
+.bg-clip-text {
+  -webkit-background-clip: text;
+}
+
+/* Mobile menu slide */
+#mobileMenu {
+  animation: slideDown 0.2s ease-out;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Input autofill fix */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  transition: color 5000s ease-in-out 0s;
+}
+
+/* Loader-2 icon */
+.lucide-loader-2 {
+  animation: spin 1s linear infinite;
+}
+
+/* Prism background blob shimmer */
+.bg-gradient-to-r {
+  background: linear-gradient(to right, var(--tw-gradient-stops));
 }
