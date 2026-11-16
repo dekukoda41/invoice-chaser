@@ -1,0 +1,13 @@
+{
+  "name": "invoice-chaser",
+  "version": "1.0.0",
+  "description": "Automated payment follow-ups for freelancers",
+  "main": "scripts/send-reminders.js",
+  "scripts": {
+    "send-reminders": "node scripts/send-reminders.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "node-fetch": "^3.3.2"
+  }
+}
